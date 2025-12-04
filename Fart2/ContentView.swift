@@ -13,33 +13,63 @@ var audioPlayer: AVAudioPlayer?
 struct ContentView: View {
     //let parent = Fart2App()
     var body: some View {
-        HStack {
-            Button("Button1", action: {
-                self.btnPressed(buttonIndex: 1)
-            }).padding()
-            Button("Button2", action: {
-                self.btnPressed(buttonIndex: 2)
-            }).padding()
+        Color.black.ignoresSafeArea().overlay {
+            VStack {
+                HStack(spacing: 50) {
+                    Button("Button1", action: {
+                        self.btnPressed(buttonIndex: 1)
+                    })
+                    .padding()
+                    .background(Color.red.ignoresSafeArea(.all))
+                    .foregroundStyle(.white)
+                    .clipShape(Capsule())
+                    
+                    Button("Button2", action: {
+                        self.btnPressed(buttonIndex: 2)
+                    }).padding()
+                        .background(Color.red.ignoresSafeArea(.all))
+                        .foregroundStyle(.white)
+                        .clipShape(Capsule())
+
+                }
+                .padding()
+                HStack(spacing: 50) {
+                    Button("Button3", action: {
+                        self.btnPressed(buttonIndex: 3)
+                    }).padding()
+                        .background(Color.red.ignoresSafeArea(.all))
+                        .foregroundStyle(.white)
+                        .clipShape(Capsule())
+
+                    Button("Button4", action: {
+                        self.btnPressed(buttonIndex: 4)
+                    }).padding()
+                        .background(Color.red.ignoresSafeArea(.all))
+                        .foregroundStyle(.white)
+                        .clipShape(Capsule())
+
+                }
+                .padding()
+                HStack(spacing: 50) {
+                    Button("Button5", action: {
+                        self.btnPressed(buttonIndex: 5)
+                    }).padding()
+                        .background(Color.red.ignoresSafeArea(.all))
+                        .foregroundStyle(.white)
+                        .clipShape(Capsule())
+
+                    Button("Button6", action: {
+                        self.btnPressed(buttonIndex: 6)
+                    }).padding()
+                        .background(Color.red.ignoresSafeArea(.all))
+                        .foregroundStyle(.white)
+                        .clipShape(Capsule())
+
+                }
+                .padding()
+            }
+            .padding()
         }
-        .padding()
-        HStack {
-            Button("Button3", action: {
-                self.btnPressed(buttonIndex: 3)
-            }).padding()
-            Button("Button4", action: {
-                self.btnPressed(buttonIndex: 4)
-            }).padding()
-        }
-        .padding()
-        HStack {
-            Button("Button5", action: {
-                self.btnPressed(buttonIndex: 5)
-            }).padding()
-            Button("Button6", action: {
-                self.btnPressed(buttonIndex: 6)
-            }).padding()
-        }
-        .padding()
     }
     
     
