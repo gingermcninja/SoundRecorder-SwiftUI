@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 @main
 struct Fart2App: App {
