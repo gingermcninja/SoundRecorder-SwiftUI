@@ -17,19 +17,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		693851552EE0E60A0006F18E /* Fart2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fart2.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		693D5F1D2EE76E4500AD28E9 /* Fart2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Fart2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		693851552EE0E60A0006F18E /* SoundRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		693D5F1D2EE76E4500AD28E9 /* SoundRecorderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoundRecorderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		693851572EE0E60A0006F18E /* Fart2 */ = {
+		693851572EE0E60A0006F18E /* SoundRecorder */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Fart2;
+			path = SoundRecorder;
 			sourceTree = "<group>";
 		};
-		693D5F1E2EE76E4500AD28E9 /* Fart2Tests */ = {
+		693D5F1E2EE76E4500AD28E9 /* SoundRecorderTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Fart2Tests;
+			path = SoundRecorderTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -55,8 +55,8 @@
 		6938514C2EE0E60A0006F18E = {
 			isa = PBXGroup;
 			children = (
-				693851572EE0E60A0006F18E /* Fart2 */,
-				693D5F1E2EE76E4500AD28E9 /* Fart2Tests */,
+				693851572EE0E60A0006F18E /* SoundRecorder */,
+				693D5F1E2EE76E4500AD28E9 /* SoundRecorderTests */,
 				693851562EE0E60A0006F18E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,8 +64,8 @@
 		693851562EE0E60A0006F18E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				693851552EE0E60A0006F18E /* Fart2.app */,
-				693D5F1D2EE76E4500AD28E9 /* Fart2Tests.xctest */,
+				693851552EE0E60A0006F18E /* SoundRecorder.app */,
+				693D5F1D2EE76E4500AD28E9 /* SoundRecorderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,9 +73,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		693851542EE0E60A0006F18E /* Fart2 */ = {
+		693851542EE0E60A0006F18E /* SoundRecorder */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 693851602EE0E60B0006F18E /* Build configuration list for PBXNativeTarget "Fart2" */;
+			buildConfigurationList = 693851602EE0E60B0006F18E /* Build configuration list for PBXNativeTarget "SoundRecorder" */;
 			buildPhases = (
 				693851512EE0E60A0006F18E /* Sources */,
 				693851522EE0E60A0006F18E /* Frameworks */,
@@ -86,18 +86,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				693851572EE0E60A0006F18E /* Fart2 */,
+				693851572EE0E60A0006F18E /* SoundRecorder */,
 			);
-			name = Fart2;
+			name = SoundRecorder;
 			packageProductDependencies = (
 			);
 			productName = Fart2;
-			productReference = 693851552EE0E60A0006F18E /* Fart2.app */;
+			productReference = 693851552EE0E60A0006F18E /* SoundRecorder.app */;
 			productType = "com.apple.product-type.application";
 		};
-		693D5F1C2EE76E4500AD28E9 /* Fart2Tests */ = {
+		693D5F1C2EE76E4500AD28E9 /* SoundRecorderTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 693D5F252EE76E4500AD28E9 /* Build configuration list for PBXNativeTarget "Fart2Tests" */;
+			buildConfigurationList = 693D5F252EE76E4500AD28E9 /* Build configuration list for PBXNativeTarget "SoundRecorderTests" */;
 			buildPhases = (
 				693D5F192EE76E4500AD28E9 /* Sources */,
 				693D5F1A2EE76E4500AD28E9 /* Frameworks */,
@@ -109,13 +109,13 @@
 				693D5F222EE76E4500AD28E9 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				693D5F1E2EE76E4500AD28E9 /* Fart2Tests */,
+				693D5F1E2EE76E4500AD28E9 /* SoundRecorderTests */,
 			);
-			name = Fart2Tests;
+			name = SoundRecorderTests;
 			packageProductDependencies = (
 			);
 			productName = Fart2Tests;
-			productReference = 693D5F1D2EE76E4500AD28E9 /* Fart2Tests.xctest */;
+			productReference = 693D5F1D2EE76E4500AD28E9 /* SoundRecorderTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -137,7 +137,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 693851502EE0E60A0006F18E /* Build configuration list for PBXProject "Fart2" */;
+			buildConfigurationList = 693851502EE0E60A0006F18E /* Build configuration list for PBXProject "SoundRecorder" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -151,8 +151,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				693851542EE0E60A0006F18E /* Fart2 */,
-				693D5F1C2EE76E4500AD28E9 /* Fart2Tests */,
+				693851542EE0E60A0006F18E /* SoundRecorder */,
+				693D5F1C2EE76E4500AD28E9 /* SoundRecorderTests */,
 			);
 		};
 /* End PBXProject section */
@@ -194,7 +194,7 @@
 /* Begin PBXTargetDependency section */
 		693D5F222EE76E4500AD28E9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 693851542EE0E60A0006F18E /* Fart2 */;
+			target = 693851542EE0E60A0006F18E /* SoundRecorder */;
 			targetProxy = 693D5F212EE76E4500AD28E9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -343,7 +343,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gingermcninja.Fart2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gingermcninja.SoundRecorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -375,7 +375,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gingermcninja.Fart2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gingermcninja.SoundRecorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -405,7 +405,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fart2.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Fart2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SoundRecorder.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SoundRecorder";
 			};
 			name = Debug;
 		};
@@ -427,14 +427,14 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fart2.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Fart2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SoundRecorder.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SoundRecorder";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		693851502EE0E60A0006F18E /* Build configuration list for PBXProject "Fart2" */ = {
+		693851502EE0E60A0006F18E /* Build configuration list for PBXProject "SoundRecorder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6938515E2EE0E60B0006F18E /* Debug */,
@@ -443,7 +443,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		693851602EE0E60B0006F18E /* Build configuration list for PBXNativeTarget "Fart2" */ = {
+		693851602EE0E60B0006F18E /* Build configuration list for PBXNativeTarget "SoundRecorder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				693851612EE0E60B0006F18E /* Debug */,
@@ -452,7 +452,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		693D5F252EE76E4500AD28E9 /* Build configuration list for PBXNativeTarget "Fart2Tests" */ = {
+		693D5F252EE76E4500AD28E9 /* Build configuration list for PBXNativeTarget "SoundRecorderTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				693D5F232EE76E4500AD28E9 /* Debug */,
