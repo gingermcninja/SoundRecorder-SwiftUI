@@ -1,6 +1,6 @@
 //
-//  Fart2App.swift
-//  Fart2
+//  SoundRecorderApp.swift
+//  SoundRecorder2
 //
 //  Created by Paul McGrath on 12/3/25.
 //
@@ -9,7 +9,7 @@ import SwiftUI
 import AVFoundation
 
 @main
-struct Fart2App: App {
+struct SoundRecorderApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
