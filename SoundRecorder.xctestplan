@@ -1,0 +1,30 @@
+{
+  "configurations" : [
+    {
+      "id" : "6427C263-8AE6-4F0C-BA58-9E8E9DD67B54",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:SoundRecorder.xcodeproj",
+      "identifier" : "693851542EE0E60A0006F18E",
+      "name" : "SoundRecorder"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:SoundRecorder.xcodeproj",
+        "identifier" : "693D5F1C2EE76E4500AD28E9",
+        "name" : "SoundRecorderTests"
+      }
+    }
+  ],
+  "version" : 1
+}
