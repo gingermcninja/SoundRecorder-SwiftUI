@@ -19,7 +19,7 @@ platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
     increment_build_number(xcodeproj: "SoundRecorder.xcodeproj")
-    build_app(scheme: "SoundRecorder", export_method: "app-store", export_options: { provisioningProfiles:{ "com.gingermcninja.SoundRecorder": "SoundRecorderDevelopment"}})
+    build_app(scheme: "SoundRecorder", export_method: "development", export_options: { provisioningProfiles:{ "com.gingermcninja.SoundRecorder": "SoundRecorderDevelopment"}})
     upload_to_testflight
   end
 end

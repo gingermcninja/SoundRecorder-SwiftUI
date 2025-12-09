@@ -19,6 +19,7 @@
 /* Begin PBXFileReference section */
 		693851552EE0E60A0006F18E /* SoundRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		693D5F1D2EE76E4500AD28E9 /* SoundRecorderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoundRecorderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		696E76032EE8D71F009FADF8 /* SoundRecorder.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SoundRecorder.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -55,6 +56,7 @@
 		6938514C2EE0E60A0006F18E = {
 			isa = PBXGroup;
 			children = (
+				696E76032EE8D71F009FADF8 /* SoundRecorder.xctestplan */,
 				693851572EE0E60A0006F18E /* SoundRecorder */,
 				693D5F1E2EE76E4500AD28E9 /* SoundRecorderTests */,
 				693851562EE0E60A0006F18E /* Products */,
@@ -330,7 +332,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8UVS37CH8W;
 				ENABLE_PREVIEWS = YES;
@@ -366,7 +368,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8UVS37CH8W;
 				ENABLE_PREVIEWS = YES;
@@ -400,7 +402,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = 8UVS37CH8W;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
@@ -423,7 +425,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
