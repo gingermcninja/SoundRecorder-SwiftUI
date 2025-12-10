@@ -74,7 +74,11 @@ struct ContentView: View {
     
     
     func btnPressed(buttonIndex: Int) {
-        guard let url = Bundle.main.url(forResource: "fart-0\(buttonIndex)", withExtension: "wav") else {
+        var filename: String = "nutz"
+        if buttonIndex != 1 {
+            filename = "fart-0\(buttonIndex)"
+        }
+        guard let url = Bundle.main.url(forResource: filename, withExtension: "wav") else {
             return
         }
         do {
