@@ -1,4 +1,4 @@
-git_url("git@github.com:gingermcninja/SoundRecorderFastlaneMatch.git")
+git_url("https://github.com/gingermcninja/SoundRecorderFastlaneMatch.git")
 
 storage_mode("git")
 
