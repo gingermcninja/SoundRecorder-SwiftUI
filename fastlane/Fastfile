@@ -29,7 +29,8 @@ platform :ios do
     increment_build_number(xcodeproj: "SoundRecorder.xcodeproj")
     setup_ci
 
-    sync_code_signing(  
+    sync_code_signing(
+      api_key: api_key,
       type: "appstore",
       readonly: is_ci
     )
