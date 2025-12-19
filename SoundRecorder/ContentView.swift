@@ -11,7 +11,6 @@ import AVFoundation
 var audioPlayer: AVAudioPlayer?
 
 struct ContentView: View {
-    //let parent = Fart2App()
     var body: some View {
         Color.black.ignoresSafeArea().overlay {
             VStack {
