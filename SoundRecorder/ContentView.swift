@@ -75,7 +75,7 @@ struct ContentView: View {
             Color.black.ignoresSafeArea().overlay {
                 VStack {
                     Spacer()
-                    Text("Record screen coming soon")
+                    Text("Record screen coming soon!")
                         .foregroundStyle(.white)
                         .padding()
                     Spacer()
