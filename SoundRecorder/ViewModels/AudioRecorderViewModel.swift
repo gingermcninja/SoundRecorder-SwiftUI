@@ -1,0 +1,117 @@
+//
+//  AudioRecorderViewModel.swift
+//  SoundRecorder
+//
+//  Created by Paul McGrath on 2/11/26.
+//
+
+import Foundation
+import AVFoundation
+import Combine
+
+class AudioRecorderViewModel: NSObject, ObservableObject, AVAudioRecorderDelegate {
+    @Published var isRecording: Bool = false
+    @Published var elapsedTime: TimeInterval = 0
+    //@Published var authorizationStatus: AVAudioSession.RecordPermission = .undetermined
+    @Published var authorizationStatus: AVAuthorizationStatus = .notDetermined
+    @Published var errorMessage: String? = nil
+
+    private var recorder: AVAudioRecorder? = nil
+    private var timer: Timer? = nil
+    private var currentFileURL: URL? = nil
+
+    override init() {
+        super.init()
+        authorizationStatus = .authorized
+    }
+
+    func requestPermission() {
+        AVAudioApplication.requestRecordPermission { granted in
+            DispatchQueue.main.async {
+                self.authorizationStatus = .authorized
+            }
+        }
+    }
+
+    private func audioFilename() -> URL {
+        let formatter = ISO8601DateFormatter()
+        let filename = formatter.string(from: Date()) + ".m4a"
+        let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        return documents.appendingPathComponent(filename)
+    }
+
+    func startRecording() {
+        errorMessage = nil
+
+        guard authorizationStatus == .authorized else {
+            errorMessage = "Microphone access not granted."
+            return
+        }
+
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(.playAndRecord, options: .defaultToSpeaker)
+            try session.setActive(true)
+
+            let settings: [String: Any] = [
+                AVFormatIDKey: kAudioFormatMPEG4AAC,
+                AVSampleRateKey: 44100,
+                AVNumberOfChannelsKey: 1,
+                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+            ]
+
+            let url = audioFilename()
+            currentFileURL = url
+
+            recorder = try AVAudioRecorder(url: url, settings: settings)
+            recorder?.delegate = self
+            recorder?.isMeteringEnabled = true
+            recorder?.prepareToRecord()
+            recorder?.record()
+
+            isRecording = true
+            elapsedTime = 0
+
+            timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
+                DispatchQueue.main.async {
+                    self?.elapsedTime = self?.recorder?.currentTime ?? 0
+                }
+            }
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    func stopRecording(save: Bool = true) {
+        timer?.invalidate()
+        timer = nil
+
+        recorder?.stop()
+        isRecording = false
+
+        if !save, let url = currentFileURL {
+            try? FileManager.default.removeItem(at: url)
+        }
+
+        if save, let url = currentFileURL {
+            AudioManager.shared.recordingNames.append(url)
+        }
+        
+
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setActive(false, options: .notifyOthersOnDeactivation)
+        } catch {
+            // no action needed on deactivate error
+        }
+    }
+
+    func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
+        stopRecording(save: false)
+        if let error = error {
+            errorMessage = error.localizedDescription
+        } else {
+            errorMessage = "An unknown recording error occurred."
+        }
+    }
+}
