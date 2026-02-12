@@ -8,79 +8,39 @@
 import SwiftUI
 import AVFoundation
 
-struct BoardView: View {
-    func btnPressed(buttonIndex: Int) {
-        var filename: String = "nutz"
-        if buttonIndex != 1 {
-            filename = "fart-0\(buttonIndex)"
-        }
-        guard let url = Bundle.main.url(forResource: filename, withExtension: "wav") else {
-            return
-        }
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-            try AVAudioSession.sharedInstance().setActive(true)
-            audioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
-            guard let player = audioPlayer else { return }
-            player.play()
-        } catch let error {
-            print(error.localizedDescription)
-        }
+struct PlaybackButton: View {
+    var buttonText: String
+    var buttonIndex: Int
+    var boardViewModel: BoardViewModel
+    var body: some View {
+        Button(buttonText, action: {
+            boardViewModel.btnPressed(buttonIndex: buttonIndex)
+        })
+        .padding()
+        .background(Color.red.ignoresSafeArea(.all))
+        .foregroundStyle(.white)
+        .clipShape(Capsule())
     }
-    
+}
+
+struct BoardView: View {
+    let boardViewModel = BoardViewModel()
     var body: some View {
         Color.black.ignoresSafeArea().overlay {
             VStack {
                 HStack(spacing: 50) {
-                    Button("Button1", action: {
-                        self.btnPressed(buttonIndex: 1)
-                    })
-                    .padding()
-                    .background(Color.red.ignoresSafeArea(.all))
-                    .foregroundStyle(.white)
-                    .clipShape(Capsule())
-                    
-                    Button("Button2", action: {
-                        self.btnPressed(buttonIndex: 2)
-                    }).padding()
-                        .background(Color.red.ignoresSafeArea(.all))
-                        .foregroundStyle(.white)
-                        .clipShape(Capsule())
-
+                    PlaybackButton(buttonText: "Button1", buttonIndex: 1, boardViewModel: boardViewModel)
+                    PlaybackButton(buttonText: "Button2", buttonIndex: 2, boardViewModel: boardViewModel)
                 }
                 .padding()
                 HStack(spacing: 50) {
-                    Button("Button3", action: {
-                        self.btnPressed(buttonIndex: 3)
-                    }).padding()
-                        .background(Color.red.ignoresSafeArea(.all))
-                        .foregroundStyle(.white)
-                        .clipShape(Capsule())
-
-                    Button("Button4", action: {
-                        self.btnPressed(buttonIndex: 4)
-                    }).padding()
-                        .background(Color.red.ignoresSafeArea(.all))
-                        .foregroundStyle(.white)
-                        .clipShape(Capsule())
-
+                    PlaybackButton(buttonText: "Button3", buttonIndex: 3, boardViewModel: boardViewModel)
+                    PlaybackButton(buttonText: "Button4", buttonIndex: 4, boardViewModel: boardViewModel)
                 }
                 .padding()
                 HStack(spacing: 50) {
-                    Button("Button5", action: {
-                        self.btnPressed(buttonIndex: 5)
-                    }).padding()
-                        .background(Color.red.ignoresSafeArea(.all))
-                        .foregroundStyle(.white)
-                        .clipShape(Capsule())
-
-                    Button("Button6", action: {
-                        self.btnPressed(buttonIndex: 6)
-                    }).padding()
-                        .background(Color.red.ignoresSafeArea(.all))
-                        .foregroundStyle(.white)
-                        .clipShape(Capsule())
-
+                    PlaybackButton(buttonText: "Button5", buttonIndex: 5, boardViewModel: boardViewModel)
+                    PlaybackButton(buttonText: "Button6", buttonIndex: 6, boardViewModel: boardViewModel)
                 }
                 .padding()
             }
