@@ -92,8 +92,8 @@ class AudioRecorderViewModel: NSObject, ObservableObject, AVAudioRecorderDelegat
         if !save, let url = currentFileURL {
             try? FileManager.default.removeItem(at: url)
         }
-        
-        if let url = currentFileURL {
+
+        if save, let url = currentFileURL {
             AudioManager.shared.recordingNames.append(url)
         }
         

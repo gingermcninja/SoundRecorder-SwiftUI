@@ -7,8 +7,9 @@
 
 import Foundation
 import AVFoundation
+import Combine
 
-class AudioManager {
+class AudioManager: ObservableObject {
     static let shared = AudioManager()
-    var recordingNames: [URL] = []
+    @Published var recordingNames: [URL] = []
 }
