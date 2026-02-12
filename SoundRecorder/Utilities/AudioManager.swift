@@ -13,3 +13,14 @@ class AudioManager: ObservableObject {
     static let shared = AudioManager()
     @Published var recordingNames: [URL] = []
 }
+
+class AVDelegate: NSObject, AVAudioPlayerDelegate {
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        
+    }
+    
+    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: (any Error)?) {
+        
+    }
+}
