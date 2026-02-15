@@ -7,12 +7,13 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-      - run: |
-	  messages=""
+      - name: "Compile commit messages"
+        run: |
+	  echo "messages=\"\"" >> $GITHUB_OUTPUT
 	  commits=$${{ github.event.commits }}
 	  length=${#commits[@]}
     	  for (( i = 0; i < length; i++ )); do
-      	    messages+="${{ commits[i].message }}\n"
+      	    echo "messages=\"${{ messages }}\n${{ commits[i].message }}\"" >> $GITHUB_OUTPUT
     	  done
       - uses: actions/checkout@v2
       - run: sudo xcode-select -s '/Applications/Xcode_26.2.app/Contents/Developer'
