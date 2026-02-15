@@ -9,7 +9,7 @@ jobs:
     steps:
       - run: |
           echo "MESSAGES=\"\"" >> $GITHUB_ENV
-          commits=$${{ github.event.commits }}
+          commits=${{ github.event.commits }}
           length=${#commits[@]}
           for (( i = 0; i < length; i++ )); do
             echo "MESSAGES=\"$MESSAGES\n${{ commits[i].message }}\"" >> $GITHUB_ENV
