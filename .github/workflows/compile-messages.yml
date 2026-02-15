@@ -1,5 +1,4 @@
-name:compile-messages 
-
+name: compile-messages 
 on:
   pull_request:
     branches: [ "main", "develop" ]
