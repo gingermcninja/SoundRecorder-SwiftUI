@@ -1,4 +1,4 @@
-AuthKey_4Y72995Z84.p8
+.env.default
 *.ipa
 *.app.dSYM.zip
 fastlane/report.xml
