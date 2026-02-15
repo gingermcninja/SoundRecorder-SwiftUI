@@ -4,17 +4,22 @@ on:
     branches:
       - 'main'
 jobs:
+  compile-messages:
+    runs-on: macos-latest
+    steps:
+      - run: |
+          echo "MESSAGES=\"\"" >> $GITHUB_ENV
+          commits=$${{ github.event.commits }}
+          length=${#commits[@]}
+          for (( i = 0; i < length; i++ )); do
+            echo "MESSAGES=\"$MESSAGES\n${{ commits[i].message }}\"" >> $GITHUB_ENV
+          done
+    outputs:
+      messages: ${{ steps.compile-messages.outputs.messages }}
+
   build:
     runs-on: macos-latest
     steps:
-      - name: "Compile commit messages"
-        run: |
-	  echo "messages=\"\"" >> $GITHUB_OUTPUT
-	  commits=$${{ github.event.commits }}
-	  length=${#commits[@]}
-    	  for (( i = 0; i < length; i++ )); do
-      	    echo "messages=\"${{ messages }}\n${{ commits[i].message }}\"" >> $GITHUB_OUTPUT
-    	  done
       - uses: actions/checkout@v2
       - run: sudo xcode-select -s '/Applications/Xcode_26.2.app/Contents/Developer'
       - run: fastlane beta --verbose
@@ -25,4 +30,4 @@ jobs:
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
           APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
           MATCH_PERSONAL_ACCESS_TOKEN: ${{ secrets.MATCH_PERSONAL_ACCESS_TOKEN }}
-          COMMIT_MESSAGES: ${{ messages }}
+          COMMIT_MESSAGES: $MESSAGES
