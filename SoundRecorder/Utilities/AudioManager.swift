@@ -9,18 +9,11 @@ import Foundation
 import AVFoundation
 import Combine
 
-class AudioManager: ObservableObject {
+class AudioManager {
     static let shared = AudioManager()
-    @Published var recordingNames: [URL] = []
-}
-
-class AVDelegate: NSObject, AVAudioPlayerDelegate {
+    var recordingNames: [URL] = []
+    private var audioPlayer: AVAudioPlayer? = nil
+    private var currentlyPlayingURL: URL? = nil
     
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        
-    }
     
-    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: (any Error)?) {
-        
-    }
 }

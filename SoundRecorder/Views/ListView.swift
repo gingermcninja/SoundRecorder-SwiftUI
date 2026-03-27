@@ -27,6 +27,8 @@ struct ListItem: View {
     var url: URL
     @State private var audioPlayer: AVAudioPlayer? = nil
     @State private var currentlyPlayingURL: URL? = nil
+    @StateObject var listViewModel: ListViewModel
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
@@ -55,13 +57,7 @@ struct ListItem: View {
                         }
                     } else {
                         do {
-                            audioPlayer = try AVAudioPlayer(contentsOf: url)
-                            audioPlayer?.prepareToPlay()
-                            audioPlayer?.play()
-                            currentlyPlayingURL = url
-                            let delegate = AudioDelegate(currentlyPlayingURL: currentlyPlayingURL)
-                            audioPlayer?.delegate = delegate
-
+                            try listViewModel.playAudio(from: url)
                         } catch {
                             // Silently fail
                         }
@@ -71,11 +67,7 @@ struct ListItem: View {
                         .imageScale(.large)
                 }
                 Button(role: .destructive, action: {
-                    if currentlyPlayingURL == url {
-                        audioPlayer?.stop()
-                        audioPlayer = nil
-                        currentlyPlayingURL = nil
-                    }
+                    listViewModel.stopAudio(from: url)
                 }) {
                     Image(systemName: "stop.circle")
                         .imageScale(.large)
@@ -109,26 +101,27 @@ struct ListItem: View {
 }
 
 struct ListView: View {
-    @StateObject private var audioManager = AudioManager.shared
+    //@StateObject private var audioManager = AudioManager.shared
+    @StateObject private var listViewModel: ListViewModel = ListViewModel()
     //@State private var audioPlayer: AVAudioPlayer?
     //@State private var currentlyPlayingURL: URL?
 
     var body: some View {
         NavigationStack {
             List {
-                if audioManager.recordingNames.isEmpty {
+                if listViewModel.recordingNames.isEmpty {
                     Text("No recordings yet")
                         .foregroundStyle(.secondary)
                 } else {
-                    ForEach(Array(audioManager.recordingNames.enumerated()), id: \.element) { index, url in
-                        ListItem(url: url)
+                    ForEach(Array(listViewModel.recordingNames.enumerated()), id: \.element) { index, url in
+                        ListItem(url: url, listViewModel: listViewModel)
                     }
                     .onDelete { indexSet in
                         for index in indexSet {
-                            let url = audioManager.recordingNames[index]
+                            let url = listViewModel.recordingNames[index]
                             try? FileManager.default.removeItem(at: url)
                         }
-                        audioManager.recordingNames.remove(atOffsets: indexSet)
+                        listViewModel.recordingNames.remove(atOffsets: indexSet)
                     }
                 }
             }
