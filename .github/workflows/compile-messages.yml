@@ -17,7 +17,4 @@ jobs:
           script: |
             const commits = github.event.commits;
             var lines = "## What’s Changed\n\n"+github.event.commits;
-            #for (const commit of commits) {
-            #  lines += "- " + commit.message + " (" + commit.id + ") @" + commit.author.username + "\n";
-            #}
             return lines;
