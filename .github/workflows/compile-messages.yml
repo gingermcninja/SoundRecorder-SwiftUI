@@ -20,5 +20,4 @@ jobs:
             for (const commit of commits) {
               lines += "- " + commit.message + " (" + commit.id + ") @" + commit.author.username + "\n"
             }
-            echo lines
             return lines
