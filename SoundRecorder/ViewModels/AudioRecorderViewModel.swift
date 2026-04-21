@@ -12,7 +12,6 @@ import Combine
 class AudioRecorderViewModel: NSObject, ObservableObject, AVAudioRecorderDelegate {
     @Published var isRecording: Bool = false
     @Published var elapsedTime: TimeInterval = 0
-    //@Published var authorizationStatus: AVAudioSession.RecordPermission = .undetermined
     @Published var authorizationStatus: AVAuthorizationStatus = .notDetermined
     @Published var errorMessage: String? = nil
 
