@@ -1,4 +1,6 @@
-This project started as a simple audio recorder and then developed into a method for testing various CI/CD tools and processes, utilizing github actions, fastlane and fastlane match.
+This project started as a simple audio sound board for my 10 year old niece. I decided to expand its functionality so that the user can record their own sounds and assign them to buttons on the audio board. This functionality is still very much a work in progress.
+
+I got somewhat sidelined with this app as I decided to use it to investigate and test various CI/CD tools and processes, utilizing github actions, fastlane and fastlane match.
 
 Jira board: https://gingermcninja.atlassian.net/jira/software/projects/SR/boards/77
 
