@@ -65,7 +65,7 @@ struct RecordView: View {
                                 .fill(Color.red)
                                 .frame(width: 140, height: 140)
                                 .overlay(
-                                    Text("Record")
+                                    Text("Start")
                                         .foregroundColor(.white)
                                         .font(.title2.bold())
                                 )
