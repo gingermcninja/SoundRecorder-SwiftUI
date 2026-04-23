@@ -58,16 +58,6 @@ struct ListView: View {
                                     Image(systemName: (currentlyPlayingURL == url && (audioPlayer?.isPlaying ?? false)) ? "pause.circle" : "play.circle")
                                         .imageScale(.large)
                                 }
-                                Button(role: .destructive, action: {
-                                    if currentlyPlayingURL == url {
-                                        audioPlayer?.stop()
-                                        audioPlayer = nil
-                                        currentlyPlayingURL = nil
-                                    }
-                                }) {
-                                    Image(systemName: "stop.circle")
-                                        .imageScale(.large)
-                                }
                             }
                         }
                         .contentShape(Rectangle())
