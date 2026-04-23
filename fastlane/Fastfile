@@ -42,5 +42,6 @@ platform :ios do
     match(type: "appstore", git_basic_authorization: ENV["MATCH_PERSONAL_ACCESS_TOKEN"], api_key: api_key, keychain_name: "soundrecorder_keychain", keychain_password: ENV["KEYCHAIN_PASSWORD"] )
     build_app(scheme: "SoundRecorder", export_method: "app-store", export_options: { provisioningProfiles:{ "com.gingermcninja.SoundRecorder": "match AppStore com.gingermcninja.SoundRecorder"}})
     upload_to_testflight(api_key: api_key)
+    delete_keychain(name: "soundrecorder_keychain")
   end
 end
