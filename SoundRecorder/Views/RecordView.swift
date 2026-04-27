@@ -10,7 +10,11 @@ import AVFoundation
 import Combine
 
 struct RecordView: View {
-    @StateObject private var vm = AudioRecorderViewModel()
+    @StateObject private var vm: AudioRecorderViewModel
+
+    init(audioManager: AudioManager) {
+        _vm = StateObject(wrappedValue: AudioRecorderViewModel(audioManager: audioManager))
+    }
 
     var body: some View {
         ZStack {
@@ -113,5 +117,5 @@ struct RecordView: View {
 }
 
 #Preview {
-    RecordView()
+    RecordView(audioManager: AudioManager())
 }

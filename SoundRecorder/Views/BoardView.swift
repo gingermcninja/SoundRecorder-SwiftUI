@@ -24,7 +24,8 @@ struct PlaybackButton: View {
 }
 
 struct BoardView: View {
-    let boardViewModel = BoardViewModel()
+    @EnvironmentObject var audioManager: AudioManager
+    var boardViewModel: BoardViewModel { BoardViewModel(audioManager: audioManager) }
     var body: some View {
         Color.black.ignoresSafeArea().overlay {
             VStack {
@@ -51,4 +52,5 @@ struct BoardView: View {
 
 #Preview {
     BoardView()
+        .environmentObject(AudioManager())
 }
