@@ -9,7 +9,12 @@ import Foundation
 import AVFoundation
 
 class BoardViewModel {
-    
+    private let audioManager: AudioManager
+
+    init(audioManager: AudioManager) {
+        self.audioManager = audioManager
+    }
+
     func btnPressed(buttonIndex: Int) {
         guard let url = Bundle.main.url(forResource: "fart-0\(buttonIndex)", withExtension: "wav") else {
             return
@@ -17,8 +22,8 @@ class BoardViewModel {
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
-            audioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
-            guard let player = audioPlayer else { return }
+            audioManager.audioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
+            guard let player = audioManager.audioPlayer else { return }
             player.play()
         } catch let error {
             print(error.localizedDescription)

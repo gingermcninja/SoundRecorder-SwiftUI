@@ -10,7 +10,6 @@ import AVFoundation
 
 struct ListView: View {
     @EnvironmentObject var audioManager: AudioManager
-    @State private var audioPlayer: AVAudioPlayer?
     @State private var currentlyPlayingURL: URL?
 
     var body: some View {
@@ -39,23 +38,23 @@ struct ListView: View {
                                 }
                                 Button(action: {
                                     if currentlyPlayingURL == url {
-                                        if let player = audioPlayer, player.isPlaying {
+                                        if let player = audioManager.audioPlayer, player.isPlaying {
                                             player.pause()
                                         } else {
-                                            audioPlayer?.play()
+                                            audioManager.audioPlayer?.play()
                                         }
                                     } else {
                                         do {
-                                            audioPlayer = try AVAudioPlayer(contentsOf: url)
-                                            audioPlayer?.prepareToPlay()
-                                            audioPlayer?.play()
+                                            audioManager.audioPlayer = try AVAudioPlayer(contentsOf: url)
+                                            audioManager.audioPlayer?.prepareToPlay()
+                                            audioManager.audioPlayer?.play()
                                             currentlyPlayingURL = url
                                         } catch {
                                             // Silently fail
                                         }
                                     }
                                 }) {
-                                    Image(systemName: (currentlyPlayingURL == url && (audioPlayer?.isPlaying ?? false)) ? "pause.circle" : "play.circle")
+                                    Image(systemName: (currentlyPlayingURL == url && (audioManager.audioPlayer?.isPlaying ?? false)) ? "pause.circle" : "play.circle")
                                         .imageScale(.large)
                                 }
                             }
@@ -63,16 +62,16 @@ struct ListView: View {
                         .contentShape(Rectangle())
                         .onTapGesture {
                             if currentlyPlayingURL == url {
-                                if let player = audioPlayer, player.isPlaying {
+                                if let player = audioManager.audioPlayer, player.isPlaying {
                                     player.pause()
                                 } else {
-                                    audioPlayer?.play()
+                                    audioManager.audioPlayer?.play()
                                 }
                             } else {
                                 do {
-                                    audioPlayer = try AVAudioPlayer(contentsOf: url)
-                                    audioPlayer?.prepareToPlay()
-                                    audioPlayer?.play()
+                                    audioManager.audioPlayer = try AVAudioPlayer(contentsOf: url)
+                                    audioManager.audioPlayer?.prepareToPlay()
+                                    audioManager.audioPlayer?.play()
                                     currentlyPlayingURL = url
                                 } catch {
                                     // Silently fail

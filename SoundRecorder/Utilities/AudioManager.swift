@@ -11,4 +11,5 @@ import Combine
 
 class AudioManager: ObservableObject {
     @Published var recordingNames: [URL] = []
+    var audioPlayer: AVAudioPlayer?
 }

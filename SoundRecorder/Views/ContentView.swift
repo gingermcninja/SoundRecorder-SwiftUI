@@ -8,8 +8,6 @@
 import SwiftUI
 import AVFoundation
 
-var audioPlayer: AVAudioPlayer?
-
 struct ContentView: View {
     @EnvironmentObject var audioManager: AudioManager
 
