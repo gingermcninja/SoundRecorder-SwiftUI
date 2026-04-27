@@ -11,13 +11,15 @@ import AVFoundation
 var audioPlayer: AVAudioPlayer?
 
 struct ContentView: View {
+    @EnvironmentObject var audioManager: AudioManager
+
     var body: some View {
         TabView {
             BoardView()
             .tabItem { Label("Playback", systemImage: "play.circle") }
             ListView()
             .tabItem { Label("List", systemImage: "list.bullet.circle") }
-            RecordView()
+            RecordView(audioManager: audioManager)
             .tabItem { Label("Record", systemImage: "mic.circle") }
         }
     }
@@ -28,4 +30,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(AudioManager())
 }

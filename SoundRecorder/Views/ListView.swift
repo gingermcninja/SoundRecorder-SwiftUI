@@ -9,7 +9,7 @@ import SwiftUI
 import AVFoundation
 
 struct ListView: View {
-    @StateObject private var audioManager = AudioManager.shared
+    @EnvironmentObject var audioManager: AudioManager
     @State private var audioPlayer: AVAudioPlayer?
     @State private var currentlyPlayingURL: URL?
 
@@ -96,4 +96,5 @@ struct ListView: View {
 
 #Preview {
     ListView()
+        .environmentObject(AudioManager())
 }

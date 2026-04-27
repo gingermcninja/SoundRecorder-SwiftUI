@@ -18,8 +18,10 @@ class AudioRecorderViewModel: NSObject, ObservableObject, AVAudioRecorderDelegat
     private var recorder: AVAudioRecorder? = nil
     private var timer: Timer? = nil
     private var currentFileURL: URL? = nil
+    private let audioManager: AudioManager
 
-    override init() {
+    init(audioManager: AudioManager) {
+        self.audioManager = audioManager
         super.init()
         authorizationStatus = .authorized
     }
@@ -93,7 +95,7 @@ class AudioRecorderViewModel: NSObject, ObservableObject, AVAudioRecorderDelegat
         }
 
         if save, let url = currentFileURL {
-            AudioManager.shared.recordingNames.append(url)
+            audioManager.recordingNames.append(url)
         }
         
 
