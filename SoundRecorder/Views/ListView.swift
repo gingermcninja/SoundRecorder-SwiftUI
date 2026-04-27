@@ -38,11 +38,8 @@ struct ListView: View {
                                 }
                                 Button(action: {
                                     if currentlyPlayingURL == url {
-                                        if let player = audioManager.audioPlayer, player.isPlaying {
-                                            player.pause()
-                                        } else {
-                                            audioManager.audioPlayer?.play()
-                                        }
+                                        audioManager.audioPlayer?.stop()
+                                        currentlyPlayingURL = nil
                                     } else {
                                         do {
                                             audioManager.audioPlayer = try AVAudioPlayer(contentsOf: url)
@@ -54,7 +51,7 @@ struct ListView: View {
                                         }
                                     }
                                 }) {
-                                    Image(systemName: (currentlyPlayingURL == url && (audioManager.audioPlayer?.isPlaying ?? false)) ? "pause.circle" : "play.circle")
+                                    Image(systemName: currentlyPlayingURL == url ? "stop.circle" : "play.circle")
                                         .imageScale(.large)
                                 }
                             }
@@ -62,11 +59,8 @@ struct ListView: View {
                         .contentShape(Rectangle())
                         .onTapGesture {
                             if currentlyPlayingURL == url {
-                                if let player = audioManager.audioPlayer, player.isPlaying {
-                                    player.pause()
-                                } else {
-                                    audioManager.audioPlayer?.play()
-                                }
+                                audioManager.audioPlayer?.stop()
+                                currentlyPlayingURL = nil
                             } else {
                                 do {
                                     audioManager.audioPlayer = try AVAudioPlayer(contentsOf: url)
