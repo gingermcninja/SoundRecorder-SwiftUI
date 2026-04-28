@@ -11,6 +11,8 @@ import AVFoundation
 struct ListView: View {
     @EnvironmentObject var audioManager: AudioManager
     @State private var currentlyPlayingURL: URL?
+    @State private var renamingURL: URL?
+    @State private var renameText: String = ""
 
     var body: some View {
         NavigationStack {
@@ -57,6 +59,15 @@ struct ListView: View {
                             }
                         }
                         .contentShape(Rectangle())
+                        .swipeActions(edge: .leading) {
+                            Button {
+                                renameText = url.deletingPathExtension().lastPathComponent
+                                renamingURL = url
+                            } label: {
+                                Label("Rename", systemImage: "pencil")
+                            }
+                            .tint(.blue)
+                        }
                         .onTapGesture {
                             if currentlyPlayingURL == url {
                                 audioManager.audioPlayer?.stop()
@@ -83,6 +94,22 @@ struct ListView: View {
                 }
             }
             .navigationTitle("Recordings")
+            .alert("Rename Recording", isPresented: Binding(
+                get: { renamingURL != nil },
+                set: { if !$0 { renamingURL = nil } }
+            )) {
+                TextField("Name", text: $renameText)
+                Button("Cancel", role: .cancel) { renamingURL = nil }
+                Button("Save") {
+                    guard let url = renamingURL, !renameText.isEmpty else { return }
+                    if let newURL = audioManager.renameRecording(at: url, to: renameText) {
+                        if currentlyPlayingURL == url {
+                            currentlyPlayingURL = newURL
+                        }
+                    }
+                    renamingURL = nil
+                }
+            }
         }
     }
 }
