@@ -11,5 +11,6 @@ import Combine
 
 class AudioManager: ObservableObject {
     @Published var recordingNames: [URL] = []
+    @Published var buttonAssignments: [Int: URL] = [:]
     var audioPlayer: AVAudioPlayer?
 }

@@ -16,16 +16,25 @@ class BoardViewModel {
     }
 
     func btnPressed(buttonIndex: Int) {
-        guard let url = Bundle.main.url(forResource: "fart-0\(buttonIndex)", withExtension: "wav") else {
+        let url: URL
+        let fileTypeHint: String?
+
+        if let assignedURL = audioManager.buttonAssignments[buttonIndex] {
+            url = assignedURL
+            fileTypeHint = nil
+        } else if let bundleURL = Bundle.main.url(forResource: "fart-0\(buttonIndex)", withExtension: "wav") {
+            url = bundleURL
+            fileTypeHint = AVFileType.wav.rawValue
+        } else {
             return
         }
+
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
-            audioManager.audioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
-            guard let player = audioManager.audioPlayer else { return }
-            player.play()
-        } catch let error {
+            audioManager.audioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: fileTypeHint)
+            audioManager.audioPlayer?.play()
+        } catch {
             print(error.localizedDescription)
         }
     }
