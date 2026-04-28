@@ -8,11 +8,22 @@
 import SwiftUI
 import AVFoundation
 
+class PlaybackDelegate: NSObject, AVAudioPlayerDelegate {
+    var onFinished: (() -> Void)?
+
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        DispatchQueue.main.async {
+            self.onFinished?()
+        }
+    }
+}
+
 struct ListView: View {
     @EnvironmentObject var audioManager: AudioManager
     @State private var currentlyPlayingURL: URL?
     @State private var renamingURL: URL?
     @State private var renameText: String = ""
+    @State private var playbackDelegate = PlaybackDelegate()
 
     var body: some View {
         NavigationStack {
@@ -43,14 +54,7 @@ struct ListView: View {
                                         audioManager.audioPlayer?.stop()
                                         currentlyPlayingURL = nil
                                     } else {
-                                        do {
-                                            audioManager.audioPlayer = try AVAudioPlayer(contentsOf: url)
-                                            audioManager.audioPlayer?.prepareToPlay()
-                                            audioManager.audioPlayer?.play()
-                                            currentlyPlayingURL = url
-                                        } catch {
-                                            // Silently fail
-                                        }
+                                        playRecording(url: url)
                                     }
                                 }) {
                                     Image(systemName: currentlyPlayingURL == url ? "stop.circle" : "play.circle")
@@ -73,14 +77,7 @@ struct ListView: View {
                                 audioManager.audioPlayer?.stop()
                                 currentlyPlayingURL = nil
                             } else {
-                                do {
-                                    audioManager.audioPlayer = try AVAudioPlayer(contentsOf: url)
-                                    audioManager.audioPlayer?.prepareToPlay()
-                                    audioManager.audioPlayer?.play()
-                                    currentlyPlayingURL = url
-                                } catch {
-                                    // Silently fail
-                                }
+                                playRecording(url: url)
                             }
                         }
                     }
@@ -94,6 +91,11 @@ struct ListView: View {
                 }
             }
             .navigationTitle("Recordings")
+            .onAppear {
+                playbackDelegate.onFinished = {
+                    currentlyPlayingURL = nil
+                }
+            }
             .alert("Rename Recording", isPresented: Binding(
                 get: { renamingURL != nil },
                 set: { if !$0 { renamingURL = nil } }
@@ -110,6 +112,17 @@ struct ListView: View {
                     renamingURL = nil
                 }
             }
+        }
+    }
+    private func playRecording(url: URL) {
+        do {
+            audioManager.audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioManager.audioPlayer?.delegate = playbackDelegate
+            audioManager.audioPlayer?.prepareToPlay()
+            audioManager.audioPlayer?.play()
+            currentlyPlayingURL = url
+        } catch {
+            // Silently fail
         }
     }
 }
