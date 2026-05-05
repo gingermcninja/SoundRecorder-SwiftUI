@@ -14,11 +14,12 @@ class AudioRecorderViewModel: NSObject, ObservableObject, AVAudioRecorderDelegat
     @Published var elapsedTime: TimeInterval = 0
     @Published var authorizationStatus: AVAuthorizationStatus = .notDetermined
     @Published var errorMessage: String? = nil
+    @Published var pendingRecordingURL: URL? = nil
 
     private var recorder: AVAudioRecorder? = nil
     private var timer: Timer? = nil
     private var currentFileURL: URL? = nil
-    private let audioManager: AudioManager
+    let audioManager: AudioManager
 
     init(audioManager: AudioManager) {
         self.audioManager = audioManager
@@ -92,12 +93,12 @@ class AudioRecorderViewModel: NSObject, ObservableObject, AVAudioRecorderDelegat
 
         if !save, let url = currentFileURL {
             try? FileManager.default.removeItem(at: url)
+            currentFileURL = nil
         }
 
         if save, let url = currentFileURL {
-            audioManager.recordingNames.append(url)
+            pendingRecordingURL = url
         }
-        
 
         let session = AVAudioSession.sharedInstance()
         do {
@@ -105,6 +106,46 @@ class AudioRecorderViewModel: NSObject, ObservableObject, AVAudioRecorderDelegat
         } catch {
             // no action needed on deactivate error
         }
+    }
+
+    func savePendingRecording(name: String, trimStart: TimeInterval, trimEnd: TimeInterval) async -> Bool {
+        guard let url = pendingRecordingURL else { return false }
+
+        let duration = (try? AVAudioPlayer(contentsOf: url))?.duration ?? 0
+        let needsTrim = trimStart > 0.05 || (duration - trimEnd) > 0.05
+
+        var savedURL: URL
+
+        if needsTrim {
+            guard let trimmedURL = await audioManager.trimRecording(
+                source: url,
+                startTime: trimStart,
+                endTime: trimEnd
+            ) else { return false }
+            try? FileManager.default.removeItem(at: url)
+            savedURL = trimmedURL
+        } else {
+            audioManager.recordingNames.append(url)
+            savedURL = url
+        }
+
+        if !name.isEmpty {
+            let _ = audioManager.renameRecording(at: savedURL, to: name)
+        }
+
+        await MainActor.run {
+            pendingRecordingURL = nil
+            currentFileURL = nil
+        }
+        return true
+    }
+
+    func discardPendingRecording() {
+        if let url = pendingRecordingURL {
+            try? FileManager.default.removeItem(at: url)
+        }
+        pendingRecordingURL = nil
+        currentFileURL = nil
     }
 
     func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
