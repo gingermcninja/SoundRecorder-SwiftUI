@@ -12,8 +12,41 @@ import CoreMedia
 
 class AudioManager: ObservableObject {
     @Published var recordingNames: [URL] = []
-    @Published var buttonAssignments: [Int: URL] = [:]
+    @Published var soundButtons: [SoundButton] = []
+    @Published var recordings: [Recording] = []
+    
     var audioPlayer: AVAudioPlayer?
+    var audioObservers: [AudioObserver] = []
+
+    func addRecording(recording: Recording) async {
+        recordings.append(recording)
+    }
+    
+    func deleteRecording(recording: Recording) {
+        recordings.removeAll { $0 == recording }
+        let url = recording.url
+        try? FileManager.default.removeItem(at: url)
+    }
+    
+    func registerAudioObserver(observer: AudioObserver) {
+        audioObservers.append(observer)
+    }
+    
+    func notifyAudioObservers() {
+        for observer in audioObservers {
+            observer.recordingsUpdated()
+        }
+    }
+
+    /*
+    func addSoundButton(title: String, recording: Recording) {
+        soundButtons.append(SoundButton(title: title, recording: recording))
+    }
+
+    func removeSoundButton(id: UUID) {
+        soundButtons.removeAll { $0.id == id }
+    }
+     */
 
     func renameRecording(at url: URL, to newName: String) -> URL? {
         let newURL = url.deletingLastPathComponent()
@@ -30,11 +63,17 @@ class AudioManager: ObservableObject {
             recordingNames[index] = newURL
         }
 
-        for (buttonIndex, assignedURL) in buttonAssignments where assignedURL == url {
-            buttonAssignments[buttonIndex] = newURL
+        for i in soundButtons.indices where soundButtons[i].recording.url == url {
+            soundButtons[i].recording.url = newURL
         }
 
         return newURL
+    }
+    
+    func renameRecording(recording: Recording, to newName: String) {
+        if let index = recordings.firstIndex(of: recording) {
+            recordings[index].name = newName
+        }
     }
 
     func trimRecording(source: URL, startTime: TimeInterval, endTime: TimeInterval) async -> URL? {

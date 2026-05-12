@@ -110,10 +110,13 @@ class AudioRecorderViewModel: NSObject, ObservableObject, AVAudioRecorderDelegat
 
     func savePendingRecording(name: String, trimStart: TimeInterval, trimEnd: TimeInterval) async -> Bool {
         guard let url = pendingRecordingURL else { return false }
-
+        var recordingName = url.absoluteString
+        if !name.isEmpty {
+            recordingName = name
+        }
         let duration = (try? AVAudioPlayer(contentsOf: url))?.duration ?? 0
         let needsTrim = trimStart > 0.05 || (duration - trimEnd) > 0.05
-
+        
         var savedURL: URL
 
         if needsTrim {
@@ -125,15 +128,22 @@ class AudioRecorderViewModel: NSObject, ObservableObject, AVAudioRecorderDelegat
             try? FileManager.default.removeItem(at: url)
             savedURL = trimmedURL
         } else {
-            audioManager.recordingNames.append(url)
+            //audioManager.recordingNames.append(url)
             savedURL = url
         }
 
+        /*
         if !name.isEmpty {
             let _ = audioManager.renameRecording(at: savedURL, to: name)
         }
+         */
+        Task {
+            let newRecord = await Recording(name: recordingName, recordingURL: savedURL)
+            await audioManager.addRecording(recording: newRecord)
+        }
 
         await MainActor.run {
+            
             pendingRecordingURL = nil
             currentFileURL = nil
         }
